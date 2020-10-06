@@ -1,11 +1,9 @@
 <template>
-  <v-app>
-    <v-file-input
-      type="file"
-      accept="image/jpeg, image/png"
-      :label="label"
-    ></v-file-input>
-  </v-app>
+  <v-file-input
+    type="file"
+    accept="image/jpeg, image/png"
+    :label="label"
+  ></v-file-input>
 </template>
 
 <script>

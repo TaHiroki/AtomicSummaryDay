@@ -1,8 +1,10 @@
 <template>
-  <DialogLogin></DialogLogin>
+  <v-app>
+    <DialogCard></DialogCard>
+  </v-app>
 </template>
 
 <script>
-import DialogLogin from "../components/molecules/DialogLogin";
+import DialogCard from "../components/molecules/DialogCard";
 export default {};
 </script>

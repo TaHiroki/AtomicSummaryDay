@@ -1,11 +1,9 @@
 <template>
-  <v-app>
-    <v-btn text :color="color">戻る</v-btn>
-  </v-app>
+  <v-btn text :color="color">{{ content }}</v-btn>
 </template>
 
 <script>
 export default {
-  props: ["color"],
+  props: ["color", "content"],
 };
 </script>
