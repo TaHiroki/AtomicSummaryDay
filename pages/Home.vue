@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <DialogCard></DialogCard>
+    <Card></Card>
   </v-app>
 </template>
 
 <script>
-import DialogCard from "../components/molecules/DialogCard";
+import Card from "../components/molecules/Card";
 export default {};
 </script>
