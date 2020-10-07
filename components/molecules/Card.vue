@@ -1,26 +1,28 @@
 <template>
   <v-card hover class="mx-auto" max-width="400">
-    <DisplayImage image="../../static/v.png">
-      <v-card-title>2020/10/1</v-card-title>
+    <DisplayImage text="white--text align-end" :image="summary.image">
+      <v-card-title
+        >{{ summary.year }}/{{ summary.month }}/{{ summary.day }}</v-card-title
+      >
     </DisplayImage>
     <v-card-actions>
       <v-spacer></v-spacer>
       <template>
-        <template>
-          <Heart color="pink accent-3"></Heart>
+        <template v-if="summary.count">
+          <Heart color="pink accent-3" :count="summary.count"></Heart>
           <Count></Count>
         </template>
-        <template>
+        <template v-else>
           <Heart color="grey lighten-1"></Heart>
           <Count count="0"></Count>
         </template>
       </template>
       <template>
-        <template>
+        <template v-if="summary.count">
           <Heart color="pink accent-3"></Heart>
-          <Count></Count>
+          <Count :count="summary.count"></Count>
         </template>
-        <template>
+        <template v-else>
           <Heart color="grey lighten-1"></Heart>
           <Count count="0"></Count>
         </template>
@@ -36,6 +38,7 @@ import Heat from "../atoms/Heart";
 import Count from "../atoms/Count";
 
 export default {
+  props: ["summary"],
   // data: () => ({
   //   currentuser: "",
   // }),

@@ -43,6 +43,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <DisplayImage
+        image=""
         text="grey lighten-2"
         aspect-ratio="1"
         max-width="50"
