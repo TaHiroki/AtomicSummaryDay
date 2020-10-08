@@ -7,13 +7,11 @@
           <AutoImage></AutoImage>
         </v-col>
         <v-col cols="12">
-          <v-form ref="test_form">
-            <InputColumnFile label="投稿画像"></InputColumnFile>
-            <InputColumnText
-              icon="mdi-comment-edit"
-              label="コメント"
-            ></InputColumnText>
-          </v-form>
+          <InputColumnFile label="投稿画像"></InputColumnFile>
+          <InputColumnText
+            icon="mdi-comment-edit"
+            label="コメント"
+          ></InputColumnText>
         </v-col>
       </v-row>
     </v-container>

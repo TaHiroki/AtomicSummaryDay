@@ -3,19 +3,10 @@
     <v-container>
       <v-row>
         <v-col>
-          <template>
-            <v-card shaped>
-              <v-card-text>
-                <InputColumnText label="ユーザーネーム"></InputColumnText>
-                <InputColumnText label="e-mail"></InputColumnText>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <DecisionBtn color="primary" content="変更"></DecisionBtn>
-                <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
-              </v-card-actions>
-            </v-card>
-          </template>
+          <User>
+            <DecisionBtn color="primary" content="変更"></DecisionBtn>
+            <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
+          </User>
         </v-col>
       </v-row>
     </v-container>
@@ -25,6 +16,7 @@
 <script>
 import InputColumnText from "../components/atoms/InputColumnText";
 import DecisionBtn from "../components/atoms/DecisionBtn";
+import User from "../components/molecules/User";
 
 export default {
   // data: () => ({
