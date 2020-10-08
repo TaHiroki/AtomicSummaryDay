@@ -1,9 +1,15 @@
 export const state = () => ({
-  counter: 0
+  currentuser: ""
 })
 
 export const mutations = {
-  increment(state) {
-    state.counter++
+  getCurrentuser(state, user) {
+    state.currentuser = user
+  }
+}
+
+export const actions = {
+  getCurrentuser(context, user) {
+    context.commit("getCurrentuser", user)
   }
 }

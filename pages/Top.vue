@@ -8,6 +8,7 @@
               id="btn-login"
               color="primary"
               name="ログイン"
+              @click.native="dialog = !dialog"
             ></CircleBtn>
             <CircleBtn id="btn-new" color="success" name="新規登録"></CircleBtn>
           </v-row>
@@ -23,7 +24,7 @@
     </div>
 
     <v-dialog v-model="dialog" width="600px">
-      <DialogLogin></DialogLogin>
+      <DialogLogin @changeDialog="change"></DialogLogin>
     </v-dialog>
   </v-app>
 </template>
@@ -38,22 +39,13 @@ export default {
   data: () => ({
     dialog: false,
   }),
+  methods: {
+    change() {
+      this.dialog = !this.dialog;
+    },
+  },
 
-  //   testemail: "tester@gmail.com",
-  //   testpassword: "test03",
-  // }),
-  // mixins: [getCurrentUser],
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     this.$nuxt.$loading.start();
-
-  //     setTimeout(() => this.$nuxt.$loading.finish(), 1000);
-  //   });
-  // },
   // methods: {
-  //   change(daialog) {
-  //     this.dialog = daialog;
-  //   },
   //   sampleLogIn() {
   //     firebase
   //       .auth()

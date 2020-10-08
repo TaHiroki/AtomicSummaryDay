@@ -5,10 +5,17 @@
       <v-container>
         <v-row>
           <v-col clos="11">
-            <InputColumnText icon="mdi-email" label="e-mail"></InputColumnText>
             <InputColumnText
+              ref="ChildEmail"
+              icon="mdi-email"
+              label="e-mail"
+              @getData="setDataEmail"
+            ></InputColumnText>
+            <InputColumnText
+              ref="ChildPassword"
               icon="mdi-lock-question"
               label="password"
+              @getData="setDataPassword"
             ></InputColumnText>
           </v-col>
         </v-row>
@@ -16,54 +23,63 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <DecisionBtn color="primary" content="戻る"></DecisionBtn>
-      <DecisionBtn content="ログイン"></DecisionBtn>
-      <!-- <v-btn text color="primary" @click="back">戻る</v-btn>
-        <v-btn text @click="signIn">ログイン</v-btn> -->
+      <DecisionBtn
+        color="primary"
+        content="戻る"
+        @click.native="change"
+      ></DecisionBtn>
+      <DecisionBtn content="ログイン" @click.native="signIn"></DecisionBtn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import firebase from "@/plugins/firebase.js";
 import InputColumnText from "../atoms/InputColumnText";
 import DecisionBtn from "../atoms/DecisionBtn";
+import getCurrentUser from "../mixins/getCurrentUser";
 
 export default {
-  //   data: () => ({
-  //     email: "",
-  //     password: "",
-  //     daialog: false,
-  //   }),
-  //   mixins: [getCurrentUser],
-  //   methods: {
-  //     back() {
-  //       this.$emit("daialogChange", this.daialog);
-  //     },
-  //     signIn() {
-  //       firebase
-  //         .auth()
-  //         .signInWithEmailAndPassword(this.email, this.password)
-  //         .then(
-  //           (user) => {
-  //             let currentuser = this.getCurrentUser();
-  //             sessionStorage.setItem("flash", "ログインしました！");
-  //             sessionStorage.setItem(
-  //               "currentuser",
-  //               JSON.stringify({
-  //                 name: currentuser.name,
-  //                 email: this.email,
-  //                 uid: currentuser.uid,
-  //               })
-  //             );
-  //             //sessionへはstringのみなのでオブジェクトは無理
-  //             //オブジェクトをjsonに変換することで使える
-  //             this.$router.push("/");
-  //           },
-  //           (err) => {
-  //             alert(err.message);
-  //           }
-  //         );
-  //     },
-  //   },
+  data: () => ({
+    email: "",
+    password: "",
+  }),
+  mixins: [getCurrentUser],
+  methods: {
+    change() {
+      this.$emit("changeDialog");
+    },
+    signIn() {
+      this.$refs.ChildEmail.sendData();
+      this.$refs.ChildPassword.sendData();
+
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          (user) => {
+            sessionStorage.setItem("flash", "ログインしました！");
+
+            let currentuser = this.getCurrentUser();
+            console.log("カレントユーザー");
+            console.log(currentuser);
+            this.$store.dispatch("getCurrentuser", {
+              name: currentuser.name,
+              email: currentuser.email,
+              uid: currentuser.uid,
+            });
+          },
+          (err) => {
+            alert("ログインできませんでした。");
+          }
+        );
+    },
+    setDataEmail(value) {
+      this.email = value;
+    },
+    setDataPassword(value) {
+      this.password = value;
+    },
+  },
 };
 </script>
