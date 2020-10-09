@@ -50,20 +50,6 @@
       <router-view></router-view>
     </v-main>
 
-    <template>
-      <v-tooltip top color="#FF5722">
-        <template v-slot:activator="{ on }">
-          <div v-on="on">
-            <PlusBtn color="grey" disabled></PlusBtn>
-          </div>
-        </template>
-        <span>投稿は１日１回 編集・削除もできません！お気をつけください！</span>
-      </v-tooltip>
-    </template>
-    <template>
-      <PlusBtn color="pink"></PlusBtn>
-    </template>
-
     <v-dialog v-model="dialog" width="800px">
       <DialogCard></DialogCard>
     </v-dialog>
