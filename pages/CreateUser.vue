@@ -29,7 +29,6 @@ export default {
       this.$refs.ChildNewUser.createUser();
     },
     saveUser(userdata) {
-      console.log(userdata);
       firebase
         .auth()
         .createUserWithEmailAndPassword(userdata.email, userdata.password)
@@ -53,6 +52,8 @@ export default {
           .catch((error) => {
             console.log(`データの登録に失敗しました`);
           });
+
+        this.setStoreCurrentuser();
 
         this.$router.push({ name: "Home" });
       }

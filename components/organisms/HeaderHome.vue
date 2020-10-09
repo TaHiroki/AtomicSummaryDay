@@ -25,7 +25,11 @@
             <v-icon>mdi-logout</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>ログアウト</v-list-item-title>
+            <v-list-item-title
+              ><nuxt-link :to="{ name: 'Top' }" @click.native="logOut">
+                ログアウト
+              </nuxt-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -89,62 +93,28 @@ export default {
     drawer: null,
     dialog: false,
     items: [
-      { icon: "mdi-home", text: "Home", link: { name: "index" } },
+      { icon: "mdi-home", text: "Home", link: { name: "Home" } },
       {
         icon: "mdi-account",
         text: "アカウント",
-        link: { name: "UserHome" },
+        link: { name: "User" },
       },
-      { icon: "mdi-cards", text: "他人の日記", link: { name: "AllIndex" } },
+      { icon: "mdi-cards", text: "他人の日記", link: { name: "AllCard" } },
+      { icon: "mdi-logout", text: "ログアウト", link: { name: "LogOut" } },
     ],
   }),
-  // components: {
-  //   Dialog,
-  //   CardBtn,
-  //   Flash,
-  // },
-  //   created() {
-  //     var today = new Date();
-  //     this.today.year = today.getFullYear();
-  //     this.today.month = today.getMonth() + 1;
-  //     this.today.day = today.getDate();
+  created() {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
 
-  //     this.currentuser = JSON.parse(sessionStorage.getItem("currentuser"));
-  //     this.getPhoto();
-  //   },
-  //   methods: {
-  //     change(daialog) {
-  //       this.dialog = daialog;
-  //     },
-  //     getPhoto() {
-  //       const db = firebase.firestore();
-  //       let dbUsers = db.collection("users");
-
-  //       dbUsers
-  //         .where("uid", "==", this.currentuser.uid)
-  //         .get()
-  //         .then((query) => {
-  //           query.forEach((doc) => {
-  //             this.image = doc.data().image;
-  //           });
-  //         });
-  //     },
-  //     logOut() {
-  //       firebase.auth().onAuthStateChanged((user) => {
-  //         firebase
-  //           .auth()
-  //           .signOut()
-  //           .then(() => {
-  //             sessionStorage.removeItem("currentuser");
-  //             console.log("ログアウトしました");
-  //             this.$router.go({ name: "TopPage" });
-  //           })
-  //           .catch((error) => {
-  //             console.log(`ログアウト時にエラーが発生しました (${error})`);
-  //           });
-  //       });
-  //     },
-  //   },
+    this.$store.dispatch("getDay", {
+      year: year,
+      month: month,
+      day: day,
+    });
+  },
 };
 </script>
 
