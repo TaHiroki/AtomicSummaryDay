@@ -19,34 +19,21 @@ import firebase from "@/plugins/firebase.js";
 import Card from "../../components/molecules/Card";
 
 export default {
-  // data: () => ({
-  //   summary: "",
-  // }),
-  // components: {
-  //   Card,
-  // },
-  // mixins: [checkLogin],
-  // created() {
-  //   let id = this.$route.params.Id;
-  //   const db = firebase.firestore();
-  //   db.collection("posts")
-  //     .where("id", "==", Number(id))
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         var data = doc.data();
-  //         this.summary = {
-  //           id: data.id,
-  //           user: data.user,
-  //           comment: data.comment,
-  //           image: data.image,
-  //           year: data.year,
-  //           month: data.month,
-  //           day: data.day,
-  //           count: data.count,
-  //         };
-  //       });
-  //     });
-  // },
+  data: () => ({
+    summary: "",
+  }),
+  created() {
+    let id = this.$route.params["id"];
+    const db = firebase.firestore();
+    db.collection("posts")
+      .where("id", "==", Number(id))
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let data = doc.data();
+          this.summary = data;
+        });
+      });
+  },
 };
 </script>

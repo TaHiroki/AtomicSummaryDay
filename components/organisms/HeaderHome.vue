@@ -20,18 +20,6 @@
             </v-list-item-content>
           </v-list-item>
         </template>
-        <v-list-item color="primary">
-          <v-list-item-action>
-            <v-icon>mdi-logout</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title
-              ><nuxt-link :to="{ name: 'Top' }" @click.native="logOut">
-                ログアウト
-              </nuxt-link>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 

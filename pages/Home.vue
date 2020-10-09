@@ -4,7 +4,9 @@
       <v-row>
         <template v-for="summary in summaries">
           <v-col cols="4" :key="summary.id">
-            <Card :summary="summary"></Card>
+            <nuxt-link :to="'/CardShow/' + summary.id">
+              <Card :summary="summary"></Card>
+            </nuxt-link>
           </v-col>
         </template>
       </v-row>
