@@ -14,7 +14,6 @@
 
 <script>
 import firebase from "@/plugins/firebase";
-import "firebase/firestore";
 import Card from "../components/molecules/Card";
 
 export default {
