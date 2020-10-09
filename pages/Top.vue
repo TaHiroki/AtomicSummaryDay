@@ -17,6 +17,7 @@
               id="btn-sample"
               color="grey lighten-2"
               name="お試しログイン"
+              @click.native="sampleLogIn"
             ></CircleBtn>
           </v-row>
         </v-container>
@@ -33,46 +34,40 @@
 import firebase from "@/plugins/firebase.js";
 import CircleBtn from "../components/atoms/CircleBtn";
 import DialogLogin from "../components/molecules/DialogLogin";
+import setStoreCurrentuser from "../components/mixins/setStoreCurrentuser";
 
 export default {
   layout: "top",
   data: () => ({
     dialog: false,
   }),
+  mixins: [setStoreCurrentuser],
   methods: {
     change() {
       this.dialog = !this.dialog;
     },
-  },
+    sampleLogIn() {
+      let testemail = "tester@gmail.com";
+      let testpassword = "test03";
 
-  // methods: {
-  //   sampleLogIn() {
-  //     firebase
-  //       .auth()
-  //       .signInWithEmailAndPassword(this.testemail, this.testpassword)
-  //       .then(
-  //         (user) => {
-  //           let currentuser = this.getCurrentUser();
-  //           sessionStorage.setItem(
-  //             "flash",
-  //             "テストユーザーでログインしました！"
-  //           );
-  //           sessionStorage.setItem(
-  //             "currentuser",
-  //             JSON.stringify({
-  //               name: currentuser.name,
-  //               email: this.email,
-  //               uid: currentuser.uid,
-  //             })
-  //           );
-  //           this.$router.push("/");
-  //         },
-  //         (err) => {
-  //           alert(err.message);
-  //         }
-  //       );
-  //   },
-  // },
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(testemail, testpassword)
+        .then(
+          (user) => {
+            sessionStorage.setItem(
+              "flash",
+              "テストユーザーでログインしました！"
+            );
+            this.setStoreCurrentuser();
+            this.$router.push({ name: "Home" });
+          },
+          (err) => {
+            alert("ログインできませんでした。");
+          }
+        );
+    },
+  },
 };
 </script>
 

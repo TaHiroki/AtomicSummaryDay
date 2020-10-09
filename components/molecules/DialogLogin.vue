@@ -37,14 +37,14 @@
 import firebase from "@/plugins/firebase.js";
 import InputColumnText from "../atoms/InputColumnText";
 import DecisionBtn from "../atoms/DecisionBtn";
-import getCurrentUser from "../mixins/getCurrentUser";
+import setStoreCurrentuser from "../mixins/setStoreCurrentuser";
 
 export default {
   data: () => ({
     email: "",
     password: "",
   }),
-  mixins: [getCurrentUser],
+  mixins: [setStoreCurrentuser],
   methods: {
     change() {
       this.$emit("changeDialog");
@@ -59,15 +59,8 @@ export default {
         .then(
           (user) => {
             sessionStorage.setItem("flash", "ログインしました！");
-
-            let currentuser = this.getCurrentUser();
-            console.log("カレントユーザー");
-            console.log(currentuser);
-            this.$store.dispatch("getCurrentuser", {
-              name: currentuser.name,
-              email: currentuser.email,
-              uid: currentuser.uid,
-            });
+            this.setStoreCurrentuser();
+            this.$router.push({ name: "Home" });
           },
           (err) => {
             alert("ログインできませんでした。");
