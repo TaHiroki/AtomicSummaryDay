@@ -10,7 +10,13 @@
               name="ログイン"
               @click.native="dialog = !dialog"
             ></CircleBtn>
-            <CircleBtn id="btn-new" color="success" name="新規登録"></CircleBtn>
+            <nuxt-link :to="{ name: 'CreateUser' }">
+              <CircleBtn
+                id="btn-new"
+                color="success"
+                name="新規登録"
+              ></CircleBtn>
+            </nuxt-link>
           </v-row>
           <v-row justify="center">
             <CircleBtn

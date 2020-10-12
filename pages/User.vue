@@ -4,7 +4,11 @@
       <v-row>
         <v-col>
           <User>
-            <DecisionBtn color="primary" content="変更"></DecisionBtn>
+            <DecisionBtn
+              color="primary"
+              content="変更"
+              page="{ name: 'Home'}"
+            ></DecisionBtn>
             <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
           </User>
         </v-col>

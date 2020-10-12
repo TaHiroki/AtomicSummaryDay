@@ -7,17 +7,17 @@
     </DisplayImage>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <template>
+      <template v-if="currentuser">
         <template v-if="summary.count">
           <Heart color="pink accent-3" :count="summary.count"></Heart>
-          <Count></Count>
+          <Count :count="summary.count"></Count>
         </template>
         <template v-else>
           <Heart color="grey lighten-1"></Heart>
           <Count count="0"></Count>
         </template>
       </template>
-      <template>
+      <template v-else>
         <template v-if="summary.count">
           <Heart color="pink accent-3"></Heart>
           <Count :count="summary.count"></Count>
@@ -39,13 +39,13 @@ import Count from "../atoms/Count";
 
 export default {
   props: ["summary"],
-  // data: () => ({
-  //   currentuser: "",
-  // }),
+  data: () => ({
+    currentuser: "",
+  }),
   // props: ["summary", "count"],
-  // created() {
-  //   this.currentuser = sessionStorage.getItem("currentuser");
-  // },
+  created() {
+    this.currentuser = this.$store.state.currentuser;
+  },
   // methods: {
   //   good() {
   //     this.currentuser = JSON.parse(sessionStorage.getItem("currentuser"));

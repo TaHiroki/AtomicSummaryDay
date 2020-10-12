@@ -38,8 +38,10 @@ export default {
     summaries: [],
   }),
   created() {
+    const currentuser = this.$store.state.currentuser;
     const db = firebase.firestore();
     db.collection("posts")
+      .where("user", "==", currentuser.name)
       // .orderBy("id", "desc")
       .get()
       .then((query) => {

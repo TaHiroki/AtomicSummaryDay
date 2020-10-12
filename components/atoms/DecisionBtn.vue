@@ -1,9 +1,9 @@
 <template>
-  <v-btn text :color="color">{{ content }}</v-btn>
+  <v-btn text :color="color" :to="page">{{ content }}</v-btn>
 </template>
 
 <script>
 export default {
-  props: ["color", "content"],
+  props: ["color", "content", "page"],
 };
 </script>

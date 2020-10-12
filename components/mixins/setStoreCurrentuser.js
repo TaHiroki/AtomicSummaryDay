@@ -6,12 +6,12 @@ export default {
     setStoreCurrentuser() {
       let currentuser = this.getCurrentUser();
       console.log("カレントユーザー");
-      console.log(this.$store.state.currentuser)
       this.$store.dispatch("getCurrentuser", {
         name: currentuser.name,
         email: currentuser.email,
         uid: currentuser.uid,
       });
+      console.log(this.$store.state.currentuser)
     }
   }
 }

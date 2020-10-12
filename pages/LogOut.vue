@@ -14,7 +14,7 @@ export default {
         .then(() => {
           this.$store.dispatch("getCurrentuser", "");
           console.log("ログアウトしました");
-          this.$router.go({ name: "Top" });
+          this.$router.push({ name: "Top" });
         })
         .catch((error) => {
           console.log(`ログアウト時にエラーが発生しました (${error})`);

@@ -4,7 +4,11 @@
       <v-row>
         <v-col align="center" justify="center">
           <User ref="ChildNewUser" @userData="saveUser">
-            <DecisionBtn color="primary" content="戻る"></DecisionBtn>
+            <DecisionBtn
+              color="primary"
+              content="戻る"
+              page="{name: 'Top'}"
+            ></DecisionBtn>
             <DecisionBtn
               content="新規登録"
               @click.native="createUser"
@@ -23,6 +27,7 @@ import DecisionBtn from "../components/atoms/DecisionBtn";
 import setStoreCurrentuser from "../components/mixins/setStoreCurrentuser";
 
 export default {
+  layout: "top",
   mixins: [setStoreCurrentuser],
   methods: {
     createUser() {
