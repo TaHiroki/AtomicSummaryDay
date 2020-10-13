@@ -9,7 +9,10 @@ export default {
   data: () => ({
     value: "",
   }),
-  props: ["icon", "label"],
+  props: ["icon", "label", "data"],
+  created() {
+    this.value = this.data;
+  },
   methods: {
     sendData() {
       this.$emit("getData", this.value);

@@ -21,20 +21,22 @@ export default {
   data: () => ({
     summaries: [],
   }),
-  created() {
-    const db = firebase.firestore();
-    db.collection("posts")
-      // .orderBy("id", "desc")
-      .get()
-      .then((query) => {
-        query.forEach((doc) => {
-          var data = doc.data();
-          this.summaries.push(data);
+  mounted() {
+    setTimeout(() => {
+      const db = firebase.firestore();
+      db.collection("posts")
+        // .orderBy("id", "desc")
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            var data = doc.data();
+            this.summaries.push(data);
+          });
+        })
+        .catch((error) => {
+          console.log(`データの取得に失敗しました`);
         });
-      })
-      .catch((error) => {
-        console.log(`データの取得に失敗しました`);
-      });
+    }, 10);
   },
 };
 </script>

@@ -37,22 +37,24 @@ export default {
   data: () => ({
     summaries: [],
   }),
-  created() {
-    const currentuser = this.$store.state.currentuser;
-    const db = firebase.firestore();
-    db.collection("posts")
-      .where("user", "==", currentuser.name)
-      // .orderBy("id", "desc")
-      .get()
-      .then((query) => {
-        query.forEach((doc) => {
-          var data = doc.data();
-          this.summaries.push(data);
+  mounted() {
+    setTimeout(() => {
+      const currentuser = this.$store.state.currentuser;
+      const db = firebase.firestore();
+      db.collection("posts")
+        .where("user", "==", currentuser.name)
+        // .orderBy("id", "desc")
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            var data = doc.data();
+            this.summaries.push(data);
+          });
+        })
+        .catch((error) => {
+          console.log(`データの取得に失敗しました`);
         });
-      })
-      .catch((error) => {
-        console.log(`データの取得に失敗しました`);
-      });
+    }, 10);
   },
 };
 </script>

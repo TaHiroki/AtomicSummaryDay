@@ -3,8 +3,14 @@
     <v-container>
       <v-row>
         <v-col>
-          <User>
+          <User
+            ref="child"
+            :currentuser="currentuser"
+            :photo="photo"
+            @userData="saveUser"
+          >
             <DecisionBtn
+              @click.native="updateUser"
               color="primary"
               content="変更"
               page="{ name: 'Home'}"
@@ -18,50 +24,78 @@
 </template>
 
 <script>
+import firebase from "@/plugins/firebase";
 import InputColumnText from "../components/atoms/InputColumnText";
 import DecisionBtn from "../components/atoms/DecisionBtn";
 import User from "../components/molecules/User";
 
 export default {
-  // data: () => ({
-  //   user: {
-  //     name: "",
-  //     email: "",
-  //   },
-  //   required: (value) => !!value || "必ず入力してください", // 入力必須の制約
-  // }),
-  // mixins: [getCurrentUser, checkLogin],
-  // created() {
-  //   let user = this.getCurrentUser();
-  //   this.user.name = user.name;
-  //   this.user.email = user.email;
-  // },
-  // methods: {
-  //   submit() {
-  //     if (this.$refs.test_form.validate()) {
-  //       let user = firebase.auth().currentUser;
-  //       user
-  //         .updateProfile({
-  //           displayName: this.user.name,
-  //         })
-  //         .then(() => {
-  //           console.log("ユーザーnameの更新に成功しました");
-  //         })
-  //         .catch(function (error) {
-  //           console.log("ユーザーnameの更新に失敗しました");
-  //         });
-  //       user
-  //         .updateEmail(this.user.email)
-  //         .then(() => {
-  //           console.log("ユーザーemailの更新に失敗しました");
-  //         })
-  //         .catch(function (error) {
-  //           console.log("ユーザーemailの更新に失敗しました");
-  //         });
-  //       this.$router.push({ name: "index" });
-  //     }
-  //   },
-  //   destroy() {},
-  // },
+  data: () => ({
+    currentuser: "",
+    photo: "",
+  }),
+  mounted() {
+    setTimeout(() => {
+      let currentuser = this.$store.state.currentuser;
+      const db = firebase.firestore();
+      let dbUsers = db.collection("users");
+      db.collection("users")
+        .where("uid", "==", currentuser.uid)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            var data = doc.data();
+            this.photo = data.image;
+          });
+        });
+
+      let user = firebase.auth().currentUser;
+      if (user) {
+        this.currentuser = user;
+      }
+    }, 10);
+  },
+  methods: {
+    updateUser() {
+      this.$refs.child.createUser();
+    },
+    saveUser(userdata) {
+      // let user = firebase.auth().currentUser;
+      // user
+      //   .updateProfile({
+      //     displayName: userdata.name,
+      //   })
+      //   .then((result) => {
+      //     console.log("name　更新しました");
+      //   })
+      //   .catch(function (error) {
+      //     console.log("name　更新できませんでした");
+      //   });
+
+      // user
+      //   .updateEmail(userdata.email)
+      //   .then((result) => {
+      //     console.log("email　更新しました");
+      //   })
+      //   .catch(function (error) {
+      //     console.log("email　更新しました");
+      //   });
+
+      if (userdata.image) {
+        const db = firebase.firestore();
+        let dbUsers = db.collection("users");
+        dbUsers
+          .where("uid", "==", this.$store.state.currentuser.uid)
+          .get()
+          .then((query) => {
+            query.forEach((doc) => {
+              console.log(doc.ref);
+            });
+          });
+
+        this.$router.push({ name: "Home" });
+      }
+    },
+  },
 };
 </script>

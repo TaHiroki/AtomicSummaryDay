@@ -1,9 +1,6 @@
-<template>
-  <HeaderHome></HeaderHome>
-</template>
+<template></template>
 
 <script>
-import HeaderHome from "../components/organisms/HeaderHome";
 export default {
   mounted() {
     setTimeout(() => {
@@ -13,7 +10,7 @@ export default {
         console.log("ログインしてください。");
         this.$router.push({ name: "Top" });
       }
-    }, 0);
+    }, 10);
   },
 };
 </script>

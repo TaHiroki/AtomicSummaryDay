@@ -19,11 +19,13 @@
             <InputColumnText
               label="ユーザーネーム"
               ref="ChildNewName"
+              :data="name"
               @getData="setDataName"
             ></InputColumnText>
             <InputColumnText
               label="e-mail"
               ref="ChildNewEmail"
+              :data="email"
               @getData="setDataEmail"
             ></InputColumnText>
             <InputColumnText
@@ -55,11 +57,25 @@ export default {
     password: "",
     image: "",
   }),
+  props: ["currentuser", "photo"],
+  created() {
+    if (this.currentuser) {
+      this.name = this.currentuser.displayName;
+      this.email = this.currentuser.email;
+    }
+  },
+  updated() {
+    if (this.currentuser) {
+      this.image = this.photo;
+    }
+  },
   methods: {
     createUser() {
       this.$refs.ChildNewName.sendData();
       this.$refs.ChildNewEmail.sendData();
       this.$refs.ChildNewPassword.sendData();
+
+      console.log("createUser　中間地点");
 
       this.$emit("userData", {
         name: this.name,

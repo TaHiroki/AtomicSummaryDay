@@ -66,6 +66,7 @@ export default {
               "テストユーザーでログインしました！"
             );
             this.setStoreCurrentuser();
+            console.log("set currentuser: " + this.$store.state.currentuser);
             this.$router.push({ name: "Home" });
           },
           (err) => {

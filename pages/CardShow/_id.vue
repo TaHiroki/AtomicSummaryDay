@@ -22,18 +22,20 @@ export default {
   data: () => ({
     summary: "",
   }),
-  created() {
-    let id = this.$route.params["id"];
-    const db = firebase.firestore();
-    db.collection("posts")
-      .where("id", "==", Number(id))
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          let data = doc.data();
-          this.summary = data;
+  mounted() {
+    setTimeout(() => {
+      let id = this.$route.params["id"];
+      const db = firebase.firestore();
+      db.collection("posts")
+        .where("id", "==", Number(id))
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            this.summary = data;
+          });
         });
-      });
+    }, 10);
   },
 };
 </script>
