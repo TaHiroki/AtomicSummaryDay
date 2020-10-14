@@ -62,11 +62,33 @@ export default {
         .catch((error) => {
           console.log(`データの取得に失敗しました`);
         });
+
+      this.checkBtn();
     }, 10);
   },
   methods: {
     daialogChange(daialog) {
       this.daialog = daialog;
+    },
+    checkBtn() {
+      let day = this.$store.state.day;
+      const db = firebase.firestore();
+      db.collection("posts")
+        .orderBy("id", "desc")
+        .limit(1)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            let data = doc.data();
+            if (
+              day.year == data.year &&
+              day.month == data.month &&
+              day.day == data.day
+            ) {
+              this.btn = true;
+            }
+          });
+        });
     },
   },
 };
