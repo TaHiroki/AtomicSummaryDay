@@ -56,13 +56,18 @@ export default {
     email: "",
     password: "",
     image: "",
+    currentuser: "",
   }),
-  props: ["currentuser", "photo"],
-  created() {
-    if (this.currentuser) {
-      this.name = this.currentuser.displayName;
-      this.email = this.currentuser.email;
-    }
+  props: ["photo"],
+  mounted() {
+    setTimeout(() => {
+      this.currentuser = this.$store.state.currentuser;
+      console.log("this.currentuser " + this.currentuser.name);
+      if (this.currentuser) {
+        this.name = this.currentuser.name;
+        this.email = this.currentuser.email;
+      }
+    }, 10);
   },
   updated() {
     if (this.currentuser) {

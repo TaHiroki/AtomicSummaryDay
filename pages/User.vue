@@ -3,12 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <User
-            ref="child"
-            :currentuser="currentuser"
-            :photo="photo"
-            @userData="saveUser"
-          >
+          <User ref="child" :photo="photo" @userData="saveUser">
             <DecisionBtn
               @click.native="updateUser"
               color="primary"
@@ -31,7 +26,6 @@ import User from "../components/molecules/User";
 
 export default {
   data: () => ({
-    currentuser: "",
     photo: "",
   }),
   mounted() {
@@ -48,11 +42,6 @@ export default {
             this.photo = data.image;
           });
         });
-
-      let user = firebase.auth().currentUser;
-      if (user) {
-        this.currentuser = user;
-      }
     }, 10);
   },
   methods: {

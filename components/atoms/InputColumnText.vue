@@ -11,7 +11,10 @@ export default {
   }),
   props: ["icon", "label", "data"],
   created() {
-    this.value = this.data;
+    setTimeout(() => {
+      this.value = this.data;
+      console.log("value: " + this.value);
+    }, 50);
   },
   methods: {
     sendData() {
