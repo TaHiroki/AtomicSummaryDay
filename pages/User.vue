@@ -88,3 +88,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+>>> .describe {
+  display: none;
+}
+</style>

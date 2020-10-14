@@ -29,6 +29,7 @@
               @getData="setDataEmail"
             ></InputColumnText>
             <InputColumnText
+              class="describe"
               label="password"
               ref="ChildNewPassword"
               @getData="setDataPassword"
@@ -62,7 +63,6 @@ export default {
   mounted() {
     setTimeout(() => {
       this.currentuser = this.$store.state.currentuser;
-      console.log("this.currentuser " + this.currentuser.name);
       if (this.currentuser) {
         this.name = this.currentuser.name;
         this.email = this.currentuser.email;
