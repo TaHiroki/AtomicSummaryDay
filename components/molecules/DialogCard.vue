@@ -4,28 +4,37 @@
     <v-container>
       <v-row class="mx-2">
         <v-col align="center" justify="center">
-          <AutoImage></AutoImage>
+          <AutoImage :image="image"></AutoImage>
         </v-col>
         <v-col cols="12">
-          <InputColumnFile label="投稿画像"></InputColumnFile>
+          <InputColumnFile
+            ref="ChildFile"
+            label="投稿画像"
+            @getData="setDataFile"
+          ></InputColumnFile>
           <InputColumnText
+            ref="ChildComment"
             icon="mdi-comment-edit"
             label="コメント"
+            @getData="setDataComment"
           ></InputColumnText>
         </v-col>
       </v-row>
     </v-container>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <DecisionBtn color="primary" content="戻る"></DecisionBtn>
-      <DecisionBtn content="投稿"></DecisionBtn>
-      <!-- <v-btn text color="primary" @click="back">戻る</v-btn>
-      <v-btn text @click="saveSummary">投稿</v-btn> -->
+      <DecisionBtn
+        color="primary"
+        content="戻る"
+        @click.native="back"
+      ></DecisionBtn>
+      <DecisionBtn content="投稿" @click.native="createCard"></DecisionBtn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import firebase from "@/plugins/firebase";
 import InputColumnText from "../atoms/InputColumnText";
 import InputColumnFile from "../atoms/InputColumnFile";
 import AutoImage from "../atoms/AutoImage";
@@ -34,78 +43,78 @@ import DecisionBtn from "../atoms/DecisionBtn";
 export default {
   data: () => ({
     dialog: false,
+    image: "",
+    comment: "",
+    day: "",
+    id: "",
   }),
-  //   created() {
-  //     this.currentuser = JSON.parse(sessionStorage.getItem("currentuser"));
+  mounted() {
+    setTimeout(() => {
+      const db = firebase.firestore();
+      db.collection("posts")
+        .orderBy("id", "desc")
+        .limit(1)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            let data = doc.data();
+            if (data.id) {
+              this.id = Number(data.id) + 1;
+            } else {
+              this.id = 0;
+            }
+          });
+        });
+    });
+  },
+  methods: {
+    createCard() {
+      this.$refs.ChildFile.sendData();
+      this.$refs.ChildComment.sendData();
 
-  //     const db = firebase.firestore();
-  //     db.collection("posts")
-  //       .orderBy("id", "desc")
-  //       .limit(1)
-  //       .get()
-  //       .then((query) => {
-  //         query.forEach((doc) => {
-  //           var data = doc.data();
-  //           if (data.id) {
-  //             this.card.id = data.id + 1;
-  //           } else {
-  //             this.card.id = 0;
-  //           }
-  //         });
-  //       });
-  //   },
-  //   methods: {
-  //     getBase64(file) {
-  //       return new Promise((resolve, reject) => {
-  //         const reader = new FileReader();
-  //         reader.readAsDataURL(file);
-  //         reader.onload = () => resolve(reader.result);
-  //         reader.onerror = (error) => reject(error);
-  //       });
-  //     },
-  //     onImageChange(e) {
-  //       if (e) {
-  //         const images = e;
-  //         this.getBase64(images).then((image) => (this.card.image = image));
-  //       } else {
-  //         this.card.image = "";
-  //       }
-  //     },
-  //     saveSummary() {
-  //       if (this.$refs.test_form.validate()) {
-  //         if (this.card.image) {
-  //           const db = firebase.firestore();
-  //           let dbPosts = db.collection("posts");
-  //           dbPosts
-  //             .add({
-  //               comment: this.card.comment,
-  //               image: this.card.image,
-  //               user: this.currentuser.name,
-  //               year: this.today.year,
-  //               month: this.today.month,
-  //               day: this.today.day,
-  //               id: this.card.id,
-  //               count: 0,
-  //             })
-  //             .then((ref) => {
-  //               sessionStorage.setItem("flash", "投稿しました。");
-  //               console.log("カードを登録できました");
-  //               this.$emit("daialogChange", this.dialog);
-  //               this.card.comment = "";
-  //               this.card.image = "";
-  //               this.$router.go({ name: "index" });
-  //             })
-  //             .catch((error) => {
-  //               console.log(`データの登録に失敗しました`);
-  //             });
-  //         }
-  //       }
-  //     },
-  //     back() {
-  //       this.card.comment = "";
-  //       this.card.image = "";
-  //       this.$emit("daialogChange", this.dialog);
-  //     },
-  //   },
+      this.day = this.$store.state.day;
+
+      this.saveCard();
+    },
+    saveCard() {
+      if (this.image) {
+        const db = firebase.firestore();
+        let dbPosts = db.collection("posts");
+        dbPosts
+          .add({
+            comment: this.comment,
+            image: this.image,
+            user: this.$store.state.currentuser.name,
+            year: this.day.year,
+            month: this.day.month,
+            day: this.day.day,
+            id: this.id,
+            count: 0,
+          })
+          .then((ref) => {
+            sessionStorage.setItem("flash", "投稿しました。");
+            console.log("カードを登録できました");
+            this.$emit("daialogChange", false);
+            this.comment = "";
+            this.image = "";
+            this.$router.go({ name: "index" });
+          })
+          .catch((error) => {
+            console.log(`データの登録に失敗しました`);
+          });
+      }
+    },
+    setDataFile(data) {
+      this.image = data;
+    },
+    setDataComment(data) {
+      this.comment = data;
+    },
+    back() {
+      this.comment = "";
+      this.image = "";
+      this.$emit("daialogChange", false);
+    },
+  },
 };
 </script>

@@ -1,5 +1,11 @@
 <template>
-  <v-img :src="image" aspect-ratio="1" class="grey lighten-2">
+  <v-img
+    :src="image"
+    aspect-ratio="1"
+    class="grey lighten-2"
+    width="500px"
+    height="400px"
+  >
     <template v-slot:placeholder v-if="image">
       <v-row class="fill-height ma-0" align="center" justify="center">
         <v-progress-circular

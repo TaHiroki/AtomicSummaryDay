@@ -12,7 +12,7 @@
       </v-row>
     </v-container>
 
-    <template>
+    <template v-if="btn">
       <v-tooltip top color="#FF5722">
         <template v-slot:activator="{ on }">
           <div v-on="on">
@@ -22,20 +22,28 @@
         <span>投稿は１日１回 編集・削除もできません！お気をつけください！</span>
       </v-tooltip>
     </template>
-    <template>
-      <PlusBtn color="pink"></PlusBtn>
+    <template v-else>
+      <PlusBtn color="pink" @click.native="daialog = !daialog"></PlusBtn>
     </template>
+
+    <v-dialog v-model="daialog" width="800px">
+      <DialogCard @daialogChange="daialogChange"></DialogCard>
+    </v-dialog>
   </v-app>
 </template>
+
 
 <script>
 import firebase from "@/plugins/firebase";
 import Card from "../components/molecules/Card";
 import PlusBtn from "../components/atoms/PlusBtn";
+import DialogCard from "../components/molecules/DialogCard";
 
 export default {
   data: () => ({
     summaries: [],
+    btn: false,
+    daialog: false,
   }),
   mounted() {
     setTimeout(() => {
@@ -43,7 +51,7 @@ export default {
       const db = firebase.firestore();
       db.collection("posts")
         .where("user", "==", currentuser.name)
-        // .orderBy("id", "desc")
+        .orderBy("id", "desc")
         .get()
         .then((query) => {
           query.forEach((doc) => {
@@ -55,6 +63,11 @@ export default {
           console.log(`データの取得に失敗しました`);
         });
     }, 10);
+  },
+  methods: {
+    daialogChange(daialog) {
+      this.daialog = daialog;
+    },
   },
 };
 </script>
