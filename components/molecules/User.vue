@@ -58,6 +58,7 @@ export default {
     password: "",
     image: "",
     currentuser: "",
+    indicate: 0,
   }),
   props: ["photo"],
   mounted() {
@@ -70,7 +71,7 @@ export default {
     }, 10);
   },
   updated() {
-    if (this.currentuser) {
+    if (this.indicate == 0) {
       this.image = this.photo;
     }
   },
@@ -99,6 +100,7 @@ export default {
       this.password = value;
     },
     setDatafile(value) {
+      this.indicate = 1;
       this.image = value;
     },
   },

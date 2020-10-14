@@ -13,7 +13,6 @@ export default {
   created() {
     setTimeout(() => {
       this.value = this.data;
-      console.log("value: " + this.value);
     }, 50);
   },
   methods: {
