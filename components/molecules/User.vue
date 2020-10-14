@@ -3,10 +3,10 @@
     <v-card-text>
       <v-container>
         <v-row>
-          <v-col cols="4">
+          <v-col cols="3">
             <AutoImage :image="image"></AutoImage>
           </v-col>
-          <v-col cols="8">
+          <v-col cols="6">
             <InputColumnFile
               label="画像"
               ref="ChildNewfile"
@@ -99,3 +99,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/*　エラーが出ているが、子コンポーネントのCSSを上書き*/
+>>> .child_image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+</style>

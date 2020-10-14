@@ -10,17 +10,19 @@ export default {
     show: false,
     flash: "",
   }),
-  // created() {
-  //   let flash = sessionStorage.getItem("flash");
-  //   if (flash) {
-  //     this.show = true;
-  //     this.flash = flash;
-  //     setTimeout(() => {
-  //       this.show = false;
-  //     }, 5000);
-  //     sessionStorage.removeItem("flash");
-  //   }
-  // },
+  mounted() {
+    setTimeout(() => {
+      let flash = sessionStorage.getItem("flash");
+      if (flash) {
+        this.show = true;
+        this.flash = flash;
+        setTimeout(() => {
+          this.show = false;
+        }, 5000);
+        sessionStorage.removeItem("flash");
+      }
+    }, 10);
+  },
 };
 </script>
 

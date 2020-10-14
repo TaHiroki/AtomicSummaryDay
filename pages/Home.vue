@@ -85,7 +85,7 @@ export default {
               day.month == data.month &&
               day.day == data.day
             ) {
-              this.btn = true;
+              this.btn = false; //ここで投稿のロック
             }
           });
         });

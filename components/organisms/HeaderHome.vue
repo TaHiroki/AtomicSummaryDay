@@ -34,14 +34,11 @@
         <span class="hidden-sm-and-down">SummaryDay</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <DisplayImage
-        image=""
+      <CircleImage
+        :image="image"
         text="grey lighten-2"
         aspect-ratio="1"
-        max-width="50"
-        max-height="50"
-        id="default-image"
-      ></DisplayImage>
+      ></CircleImage>
     </v-app-bar>
 
     <Flash></Flash>
@@ -57,15 +54,17 @@
 </template>
 
 <script>
+import firebase from "@/plugins/firebase";
 import Flash from "../atoms/Flash";
 import PlusBtn from "../atoms/PlusBtn";
 import DialogCard from "../molecules/DialogCard";
-import DisplayImage from "../atoms/DisplayImage";
+import CircleImage from "../atoms/CircleImage";
 
 export default {
   data: () => ({
     drawer: null,
     dialog: false,
+    image: "",
     items: [
       { icon: "mdi-home", text: "Home", link: { name: "Home" } },
       {
@@ -89,11 +88,21 @@ export default {
       day: day,
     });
   },
+  mounted() {
+    setTimeout(() => {
+      let currentuser = this.$store.state.currentuser;
+      const db = firebase.firestore();
+      let dbUsers = db.collection("users");
+      db.collection("users")
+        .where("uid", "==", currentuser.uid)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            var data = doc.data();
+            this.image = data.image;
+          });
+        }, 10);
+    });
+  },
 };
 </script>
-
-<style  scoped>
-#default-image {
-  border-radius: 50%;
-}
-</style>

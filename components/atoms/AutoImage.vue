@@ -1,11 +1,5 @@
 <template>
-  <v-img
-    :src="image"
-    aspect-ratio="1"
-    class="grey lighten-2"
-    width="500px"
-    height="400px"
-  >
+  <v-img :src="image" aspect-ratio="1" class="grey lighten-2 child_image">
     <template v-slot:placeholder v-if="image">
       <v-row class="fill-height ma-0" align="center" justify="center">
         <v-progress-circular
@@ -22,3 +16,10 @@ export default {
   props: ["image"],
 };
 </script>
+
+<style scoped>
+.child_image {
+  width: 500px;
+  height: 400px;
+}
+</style>
