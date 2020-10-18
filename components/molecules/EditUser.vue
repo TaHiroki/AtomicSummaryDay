@@ -54,25 +54,30 @@ export default {
     currentuser: "",
     indicate: 0,
   }),
-  props: ["photo"],
   mounted() {
     setTimeout(() => {
       this.currentuser = this.$store.state.currentuser;
       if (this.currentuser) {
         this.name = this.currentuser.name;
-        this.email = this.currentuser.email;
       }
+
+      let currentuser = this.$store.state.currentuser;
+      const db = firebase.firestore();
+      let dbUsers = db.collection("users");
+      db.collection("users")
+        .where("uid", "==", currentuser.uid)
+        .get()
+        .then((query) => {
+          query.forEach((doc) => {
+            let data = doc.data();
+            this.image = data.image;
+          });
+        });
     }, 10);
-  },
-  updated() {
-    if (this.indicate == 0) {
-      this.image = this.photo;
-    }
   },
   methods: {
     updateUser() {
       this.$refs.ChildNewName.sendData();
-      this.$refs.ChildNewEmail.sendData();
 
       let user = firebase.auth().currentUser;
 
@@ -87,13 +92,6 @@ export default {
           console.log("name　更新できませんでした");
         });
 
-      // user
-      //   .updateEmail(this.email)
-      //   .then((result) => {
-      //     console.log("this.rmail: " + this.email);
-      //   })
-      //   .catch(function (error) {});
-
       if (this.image) {
         const db = firebase.firestore();
         let dbUsers = db.collection("users");
@@ -102,7 +100,10 @@ export default {
           .get()
           .then((query) => {
             query.forEach((doc) => {
-              console.log(doc.ref);
+              dbUsers.doc(String(doc.ref.id)).update({
+                image: this.image,
+              });
+              console.log("imageを変更しました");
             });
           });
       }

@@ -34,11 +34,6 @@
         <span class="hidden-sm-and-down">The best day</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <CircleImage
-        :image="image"
-        text="grey lighten-2"
-        aspect-ratio="1"
-      ></CircleImage>
     </v-app-bar>
 
     <Flash></Flash>
@@ -86,22 +81,6 @@ export default {
       year: year,
       month: month,
       day: day,
-    });
-  },
-  mounted() {
-    setTimeout(() => {
-      let currentuser = this.$store.state.currentuser;
-      const db = firebase.firestore();
-      let dbUsers = db.collection("users");
-      db.collection("users")
-        .where("uid", "==", currentuser.uid)
-        .get()
-        .then((query) => {
-          query.forEach((doc) => {
-            var data = doc.data();
-            this.image = data.image;
-          });
-        }, 10);
     });
   },
 };
