@@ -2,6 +2,11 @@
   <v-app>
     <div id="login">
       <div id="btn-set">
+        <div id="text">
+          <h1>今日１日で最高な出来事を</h1>
+          <h3>投稿は１日に１回・編集も削除もできません</h3>
+          <h3>今日という日の最も印象的なことを投稿して共有しましょう</h3>
+        </div>
         <v-container>
           <v-row justify="center">
             <CircleBtn
@@ -88,7 +93,16 @@ export default {
 }
 
 #btn-set {
-  margin-top: 500px;
+  margin-top: 300px;
+}
+
+#text {
+  margin: 30px 0;
+  color: #eceff1;
+}
+
+#text h1 {
+  margin: 20px 0;
 }
 
 #btn-login {
