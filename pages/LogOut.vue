@@ -14,7 +14,7 @@ export default {
         .then(() => {
           this.$store.dispatch("getCurrentuser", "");
           console.log("ログアウトしました");
-          window.location.href = "naughty-mcclintock-6c6b2d.netlify.app/top";
+          window.location.href = "/top";
         })
         .catch((error) => {
           console.log(`ログアウト時にエラーが発生しました (${error})`);
