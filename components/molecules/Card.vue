@@ -56,6 +56,7 @@ export default {
           post_id: this.summary.id,
         })
         .then((ref) => {
+          sessionStorage.setItem("flash", "いいね　しました！");
           console.log("いいね！しました");
         })
         .catch((error) => {
@@ -86,6 +87,7 @@ export default {
             post
               .delete()
               .then(() => {
+                sessionStorage.setItem("flash", "いいね　を取り消しました");
                 console.log("いいねを消しました。");
               })
               .catch((error) => {

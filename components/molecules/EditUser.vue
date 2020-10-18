@@ -22,12 +22,6 @@
               :data="name"
               @getData="setDataName"
             ></InputColumnText>
-            <InputColumnText
-              label="e-mail"
-              ref="ChildNewEmail"
-              :data="email"
-              @getData="setDataEmail"
-            ></InputColumnText>
           </v-col>
         </v-row>
       </v-container>

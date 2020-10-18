@@ -12,7 +12,6 @@
 
 <script>
 import firebase from "@/plugins/firebase";
-import InputColumnText from "../components/atoms/InputColumnText";
 import EditUser from "../components/molecules/EditUser";
 
 export default {
@@ -34,51 +33,6 @@ export default {
           });
         });
     }, 10);
-  },
-  methods: {
-    updateUser() {
-      console.log(this.$parent.$refs);
-
-      // this.$refs.child.createUser();
-    },
-    saveUser(userdata) {
-      console.log("userdata: " + userdata);
-      let user = firebase.auth().currentUser;
-      user
-        .updateProfile({
-          displayName: userdata.name,
-        })
-        .then((result) => {
-          console.log("name　更新しました");
-        })
-        .catch(function (error) {
-          console.log("name　更新できませんでした");
-        });
-
-      user
-        .updateEmail(userdata.email)
-        .then((result) => {
-          console.log("email　更新しました");
-        })
-        .catch(function (error) {
-          console.log("email　更新しました");
-        });
-
-      if (userdata.image) {
-        const db = firebase.firestore();
-        let dbUsers = db.collection("users");
-        dbUsers
-          .where("uid", "==", this.$store.state.currentuser.uid)
-          .get()
-          .then((query) => {
-            query.forEach((doc) => {
-              console.log(doc.ref);
-            });
-          });
-
-        this.$router.push({ name: "Home" });
-      }
-    },
   },
 };
 </script>
