@@ -28,24 +28,24 @@
               :data="email"
               @getData="setDataEmail"
             ></InputColumnText>
-            <InputColumnText
-              class="describe"
-              label="password"
-              ref="ChildNewPassword"
-              @getData="setDataPassword"
-            ></InputColumnText>
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <slot></slot>
+      <DecisionBtn
+        @click.native="updateUser"
+        color="primary"
+        content="変更"
+      ></DecisionBtn>
+      <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import firebase from "@/plugins/firebase";
 import InputColumnText from "../atoms/InputColumnText";
 import DecisionBtn from "../atoms/DecisionBtn";
 import InputColumnField from "../atoms/InputColumnFile";
@@ -76,17 +76,42 @@ export default {
     }
   },
   methods: {
-    createUser() {
+    updateUser() {
       this.$refs.ChildNewName.sendData();
       this.$refs.ChildNewEmail.sendData();
-      this.$refs.ChildNewPassword.sendData();
 
-      this.$emit("userData", {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        image: this.image,
-      });
+      let user = firebase.auth().currentUser;
+
+      user
+        .updateProfile({
+          displayName: this.name,
+        })
+        .then((result) => {
+          console.log("name　更新しました");
+        })
+        .catch(function (error) {
+          console.log("name　更新できませんでした");
+        });
+
+      // user
+      //   .updateEmail(this.email)
+      //   .then((result) => {
+      //     console.log("this.rmail: " + this.email);
+      //   })
+      //   .catch(function (error) {});
+
+      if (this.image) {
+        const db = firebase.firestore();
+        let dbUsers = db.collection("users");
+        dbUsers
+          .where("uid", "==", this.$store.state.currentuser.uid)
+          .get()
+          .then((query) => {
+            query.forEach((doc) => {
+              console.log(doc.ref);
+            });
+          });
+      }
     },
     setDataName(value) {
       this.name = value;

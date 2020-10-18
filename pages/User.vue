@@ -3,15 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <User ref="child" :photo="photo" @userData="saveUser">
-            <DecisionBtn
-              @click.native="updateUser"
-              color="primary"
-              content="変更"
-              page="{ name: 'Home'}"
-            ></DecisionBtn>
-            <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
-          </User>
+          <EditUser :photo="photo"></EditUser>
         </v-col>
       </v-row>
     </v-container>
@@ -21,8 +13,7 @@
 <script>
 import firebase from "@/plugins/firebase";
 import InputColumnText from "../components/atoms/InputColumnText";
-import DecisionBtn from "../components/atoms/DecisionBtn";
-import User from "../components/molecules/User";
+import EditUser from "../components/molecules/EditUser";
 
 export default {
   data: () => ({
@@ -46,29 +37,32 @@ export default {
   },
   methods: {
     updateUser() {
-      this.$refs.child.createUser();
+      console.log(this.$parent.$refs);
+
+      // this.$refs.child.createUser();
     },
     saveUser(userdata) {
-      // let user = firebase.auth().currentUser;
-      // user
-      //   .updateProfile({
-      //     displayName: userdata.name,
-      //   })
-      //   .then((result) => {
-      //     console.log("name　更新しました");
-      //   })
-      //   .catch(function (error) {
-      //     console.log("name　更新できませんでした");
-      //   });
+      console.log("userdata: " + userdata);
+      let user = firebase.auth().currentUser;
+      user
+        .updateProfile({
+          displayName: userdata.name,
+        })
+        .then((result) => {
+          console.log("name　更新しました");
+        })
+        .catch(function (error) {
+          console.log("name　更新できませんでした");
+        });
 
-      // user
-      //   .updateEmail(userdata.email)
-      //   .then((result) => {
-      //     console.log("email　更新しました");
-      //   })
-      //   .catch(function (error) {
-      //     console.log("email　更新しました");
-      //   });
+      user
+        .updateEmail(userdata.email)
+        .then((result) => {
+          console.log("email　更新しました");
+        })
+        .catch(function (error) {
+          console.log("email　更新しました");
+        });
 
       if (userdata.image) {
         const db = firebase.firestore();

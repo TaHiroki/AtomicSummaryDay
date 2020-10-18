@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col align="center" justify="center">
-          <User ref="ChildNewUser" @userData="saveUser">
+          <User ref="childNewUser" @userData="saveUser">
             <DecisionBtn
               color="primary"
               content="戻る"
@@ -31,7 +31,7 @@ export default {
   mixins: [setStoreCurrentuser],
   methods: {
     createUser() {
-      this.$refs.ChildNewUser.createUser();
+      this.$refs.childNewUser.createUser();
     },
     saveUser(userdata) {
       firebase

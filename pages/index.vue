@@ -1,10 +1,10 @@
 <template>
-  <User></User>
+  <EditUser></EditUser>
 </template>
 
 <script>
 // これはテストページ
-import User from "../components/molecules/User";
+import EditUser from "../components/molecules/EditUser";
 
 export default {};
 </script>
