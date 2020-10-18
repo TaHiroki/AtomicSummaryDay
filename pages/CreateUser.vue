@@ -60,7 +60,7 @@ export default {
 
         this.setStoreCurrentuser();
 
-        this.$router.push({ name: "Home" });
+        this.$router.go("/home");
       }
     },
   },
