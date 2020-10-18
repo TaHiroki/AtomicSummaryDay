@@ -6,22 +6,20 @@
 import firebase from "@/plugins/firebase";
 
 export default {
-  mounted() {
-    setTimeout(() => {
-      firebase.auth().onAuthStateChanged((user) => {
-        firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            this.$store.dispatch("getCurrentuser", "");
-            console.log("ログアウトしました");
-            this.$router.go("/top");
-          })
-          .catch((error) => {
-            console.log(`ログアウト時にエラーが発生しました (${error})`);
-          });
-      });
-    }, 10);
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$store.dispatch("getCurrentuser", "");
+          console.log("ログアウトしました");
+          window.location.href = "naughty-mcclintock-6c6b2d.netlify.app/top";
+        })
+        .catch((error) => {
+          console.log(`ログアウト時にエラーが発生しました (${error})`);
+        });
+    });
   },
 };
 </script>
