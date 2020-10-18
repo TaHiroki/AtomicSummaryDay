@@ -33,7 +33,6 @@
         color="primary"
         content="変更"
       ></DecisionBtn>
-      <DecisionBtn color="#D50000" content="削除"></DecisionBtn>
     </v-card-actions>
   </v-card>
 </template>
