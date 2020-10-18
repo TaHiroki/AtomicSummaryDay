@@ -18,6 +18,7 @@ export default {
 
 <style scoped>
 span {
+  font-size: 30px;
   color: white;
 }
 </style>

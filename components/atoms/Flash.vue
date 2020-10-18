@@ -29,5 +29,6 @@ export default {
 <style scoped>
 #alert {
   margin-top: 65px;
+  text-align: center;
 }
 </style>

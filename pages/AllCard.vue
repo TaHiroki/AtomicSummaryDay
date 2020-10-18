@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <template v-for="summary in summaries">
-          <v-col cols="4" :key="summary.id">
+          <v-col cols="6" md="4" :key="summary.id">
             <Card :summary="summary"></Card>
           </v-col>
         </template>

@@ -1,38 +1,34 @@
 <template>
   <v-app>
-    <div id="login">
-      <div id="btn-set">
-        <div id="text">
-          <h1>今日１日で最高な出来事を</h1>
-          <h3>投稿は１日に１回・編集も削除もできません</h3>
-          <h3>今日という日の最も印象的なことを投稿して共有しましょう</h3>
-        </div>
-        <v-container>
-          <v-row justify="center">
-            <CircleBtn
-              id="btn-login"
-              color="primary"
-              name="ログイン"
-              @click.native="dialog = !dialog"
-            ></CircleBtn>
-            <nuxt-link :to="{ name: 'CreateUser' }">
-              <CircleBtn
-                id="btn-new"
-                color="success"
-                name="新規登録"
-              ></CircleBtn>
-            </nuxt-link>
-          </v-row>
-          <v-row justify="center">
-            <CircleBtn
-              id="btn-sample"
-              color="grey lighten-2"
-              name="お試しログイン"
-              @click.native="sampleLogIn"
-            ></CircleBtn>
-          </v-row>
-        </v-container>
-      </div>
+    <v-img id="login" src="/image/toppage.jpg"></v-img>
+    <div id="text">
+      <h1>今日１日で最高な出来事を</h1>
+      <h3>投稿は１日に１回・編集も削除もできません</h3>
+      <h3>今日という日の最も印象的なことを投稿して共有しましょう</h3>
+    </div>
+
+    <div id="btn-set">
+      <v-container>
+        <v-row justify="center">
+          <CircleBtn
+            id="btn-login"
+            color="primary"
+            name="ログイン"
+            @click.native="dialog = !dialog"
+          ></CircleBtn>
+          <nuxt-link :to="{ name: 'CreateUser' }">
+            <CircleBtn id="btn-new" color="success" name="新規登録"></CircleBtn>
+          </nuxt-link>
+        </v-row>
+        <v-row justify="center">
+          <CircleBtn
+            id="btn-sample"
+            color="grey lighten-2"
+            name="お試しログイン"
+            @click.native="sampleLogIn"
+          ></CircleBtn>
+        </v-row>
+      </v-container>
     </div>
 
     <v-dialog v-model="dialog" width="600px">
@@ -86,19 +82,20 @@ export default {
 <style scoped>
 #login {
   width: 100%;
-  height: 800px;
+  height: 600px;
   background-size: 100% auto;
-  background-image: url("/image/toppage.jpg");
-  text-align: center;
 }
 
 #btn-set {
-  margin-top: 100px;
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 #text {
+  width: 100%;
+  text-align: center;
   margin: 30px 0;
-  color: #eeeeee;
+  color: black;
 }
 
 #text h1 {
