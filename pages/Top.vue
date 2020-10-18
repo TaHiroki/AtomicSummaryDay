@@ -93,12 +93,12 @@ export default {
 }
 
 #btn-set {
-  margin-top: 300px;
+  margin-top: 100px;
 }
 
 #text {
   margin: 30px 0;
-  color: #eceff1;
+  color: #eeeeee;
 }
 
 #text h1 {

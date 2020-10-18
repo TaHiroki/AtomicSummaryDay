@@ -15,3 +15,9 @@ export default {
   props: ["color"],
 };
 </script>
+
+<style scoped>
+span {
+  color: white;
+}
+</style>
