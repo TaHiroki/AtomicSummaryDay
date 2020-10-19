@@ -67,7 +67,7 @@ export default {
         text: "アカウント",
         link: { name: "User" },
       },
-      { icon: "mdi-cards", text: "他人の日記", link: { name: "AllCard" } },
+      { icon: "mdi-cards", text: "全ての投稿", link: { name: "AllCard" } },
       { icon: "mdi-logout", text: "ログアウト", link: { name: "LogOut" } },
     ],
   }),

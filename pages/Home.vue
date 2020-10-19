@@ -74,6 +74,7 @@ export default {
       let day = this.$store.state.day;
       const db = firebase.firestore();
       db.collection("posts")
+        .where("user", "==", this.$store.state.currentuser.name)
         .orderBy("id", "desc")
         .limit(1)
         .get()
