@@ -1,7 +1,7 @@
 <template>
   <v-app-bar :color="color">
     <v-container>
-      <v-row justify="left">
+      <v-row>
         <v-col cols="3">
           <span class="hidden-sm-and-down">The best day</span>
         </v-col>

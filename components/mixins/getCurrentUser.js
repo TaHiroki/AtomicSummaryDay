@@ -7,17 +7,13 @@ export default {
   methods: {
     getCurrentUser() {
       let user = firebase.auth().currentUser;
-      let uid
-      user.providerData.forEach((profile) => {
-        uid = profile.uid
-      });
       if (user != null) {
         let name = user.displayName;
         let email = user.email;
         return {
           name: name,
           email: email,
-          uid: uid
+          uid: email
         }
       } else {
         console.log("ログインしていません")
