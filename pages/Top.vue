@@ -54,8 +54,8 @@ export default {
       this.dialog = !this.dialog;
     },
     sampleLogIn() {
-      let testemail = "tester2@gmail.com";
-      let testpassword = "test03";
+      let testemail = "tester@gmail.com";
+      let testpassword = "test01";
 
       firebase
         .auth()
