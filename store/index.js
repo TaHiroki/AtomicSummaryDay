@@ -9,6 +9,9 @@ export const mutations = {
   },
   getDay(state, day) {
     state.day = day
+  },
+  changeName(state, name) {
+    state.currentuser = name
   }
 }
 
@@ -18,5 +21,8 @@ export const actions = {
   },
   getDay(context, day) {
     context.commit("getDay", day)
+  },
+  changeName(context, name) {
+    context.commit("changeName", name)
   }
 }

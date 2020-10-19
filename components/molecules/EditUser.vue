@@ -7,11 +7,7 @@
             <AutoImage :image="image"></AutoImage>
           </v-col>
           <v-col cols="6">
-            <InputColumnFile
-              label="画像"
-              ref="ChildNewfile"
-              @getData="setDatafile"
-            ></InputColumnFile>
+            <!-- <InputColumnFile label="画像" ref="ChildNewfile"></InputColumnFile> -->
           </v-col>
         </v-row>
         <v-row>
@@ -20,19 +16,20 @@
               label="ユーザーネーム"
               ref="ChildNewName"
               :data="name"
-              @getData="setDataName"
-            ></InputColumnText>
+            >
+              ></InputColumnText
+            >
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <DecisionBtn
+      <!-- <DecisionBtn
         @click.native="updateUser"
         color="primary"
         content="変更"
-      ></DecisionBtn>
+      ></DecisionBtn> -->
     </v-card-actions>
   </v-card>
 </template>
@@ -75,51 +72,48 @@ export default {
     }, 10);
   },
   methods: {
-    updateUser() {
-      this.$refs.ChildNewName.sendData();
-
-      let user = firebase.auth().currentUser;
-
-      user
-        .updateProfile({
-          displayName: this.name,
-        })
-        .then((result) => {
-          console.log("name　更新しました");
-        })
-        .catch(function (error) {
-          console.log("name　更新できませんでした");
-        });
-
-      if (this.image) {
-        const db = firebase.firestore();
-        let dbUsers = db.collection("users");
-        dbUsers
-          .where("uid", "==", this.$store.state.currentuser.uid)
-          .get()
-          .then((query) => {
-            query.forEach((doc) => {
-              dbUsers.doc(String(doc.ref.id)).update({
-                image: this.image,
-              });
-              console.log("imageを変更しました");
-            });
-          });
-      }
-    },
-    setDataName(value) {
-      this.name = value;
-    },
-    setDataEmail(value) {
-      this.email = value;
-    },
-    setDataPassword(value) {
-      this.password = value;
-    },
-    setDatafile(value) {
-      this.indicate = 1;
-      this.image = value;
-    },
+    // updateUser() {
+    //   this.$refs.ChildNewName.sendData();
+    //   let user = firebase.auth().currentUser;
+    //   user
+    //     .updateProfile({
+    //       displayName: this.name,
+    //     })
+    //     .then((result) => {
+    //       console.log("name　更新しました");
+    //       this.$store.dispatch("changeName", this.name);
+    //     })
+    //     .catch(function (error) {
+    //       console.log("name　更新できませんでした");
+    //     });
+    //   if (this.image) {
+    //     const db = firebase.firestore();
+    //     let dbUsers = db.collection("users");
+    //     dbUsers
+    //       .where("uid", "==", this.$store.state.currentuser.uid)
+    //       .get()
+    //       .then((query) => {
+    //         query.forEach((doc) => {
+    //           dbUsers.doc(String(doc.ref.id)).update({
+    //             image: this.image,
+    //           });
+    //           console.log("imageを変更しました");
+    //         });
+    //       });
+    //   }
+  },
+  setDataName(value) {
+    this.name = value;
+  },
+  setDataEmail(value) {
+    this.email = value;
+  },
+  setDataPassword(value) {
+    this.password = value;
+  },
+  setDatafile(value) {
+    this.indicate = 1;
+    this.image = value;
   },
 };
 </script>
