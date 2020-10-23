@@ -37,7 +37,8 @@ export default {
     {
       src: '@/plugins/localStorage.js',
       ssr: false
-    }
+    },
+    { src: '~plugins/ga.js', mode: 'client' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
